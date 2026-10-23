@@ -5,4 +5,16 @@ y debemos mostrar la figura que se llega a crear en el plano cartesiano.
 """
 import matplotlib.pyplot as plt
 from shapely.geometry import * 
-    
+
+i= 0
+arrib = ("*".ljust(50,"*"))
+print(arrib)
+while True:
+    print("*"+ " " * 49 + "*")
+    i +=1
+    if i == 2:
+        text = "BIENVENIDO".center(47)
+        print("*",text,"*")
+        forma = ("*"+ " " * 49 + "*")
+        print(forma+'\n'+ forma+"\n"+arrib)
+        break
