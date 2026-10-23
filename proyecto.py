@@ -18,3 +18,18 @@ while True:
         forma = ("*"+ " " * 49 + "*")
         print(forma+'\n'+ forma+"\n"+arrib)
         break
+
+matrices = {"A":[],"B":[],"C":[],"D":[]}
+for name,lista in matrices.items():
+    while True:
+        dato = input(f"ingrese coordenadas de matriz {name}: ")
+        if dato == "":
+            break
+        valores = dato.split(",")
+        tupae = (int(valores[0]),int(valores[1]))
+        lista.append(tupae)
+        print(f"valor ingresados de {name}: ",lista)
+
+
+
+    
