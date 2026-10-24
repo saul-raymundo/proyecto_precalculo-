@@ -6,7 +6,7 @@ y debemos mostrar la figura que se llega a crear en el plano cartesiano.
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches 
 from sympy.geometry import * 
-
+from matplotlib.ticker import MultipleLocator
 i= 0
 arrib = ("*".ljust(50,"*"))
 print(arrib)
@@ -28,39 +28,34 @@ for name,lista in matrices.items():
         if dato == "":
             break # cuando el usuario deje un espacio en blanco pasa a la siguiente matriz.
         valores = dato.split(",")
-        tupae = (float(valores[0]),float(valores[1]))
+        tupae =(float(valores[0]),float(valores[1]))
         lista.append(tupae)
         print(f"valor ingresados de {name}: ",lista)
-coo = []
+
+coor = []
 for valor in matrices.values():
-    if len(valor) > 0:
-        coo.append(valor[0])
-        #x = [coord[0] for coord in valor]
-        #y = [coord[1] for coord in valor]
-        #x.append(x[0])
-        #y.append(y[0])
+    for coo in valor:
+        coor.append(coo)
 
-print(coo)
+
 fig,ax = plt.subplots()
-
-figura = patches.Polygon(coo,closed=True)
+figura = patches.Polygon(coor,closed=True)
 #agregamos los valores la funcion
 ax.add_patch(figura)
 
-
-
 #creamos un plano cartesiano
-ax.axhline(0,color = "black", linewidth = 2, linestyle = "-")
-ax.axvline(0,color = "black", linewidth = 2, linestyle = "-")
+ax.axhline(0,color = "black", linewidth = 2, )
+ax.axvline(0,color = "black", linewidth = 2, )
 
 #creamos la cudricula para mejor visualizacion 
 ax.grid(True)
-
 #creamos los limites del plano cartesiano
 ax.set_xlim(-10,10)
 ax.set_ylim(-10,10)
+ax.xaxis.set_major_locator(MultipleLocator(1))
+ax.yaxis.set_major_locator(MultipleLocator(1))
 
-ax.relim()
+#para mostrar el plano cartesiano
 plt.show()
 
 
