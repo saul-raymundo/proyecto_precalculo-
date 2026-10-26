@@ -8,6 +8,8 @@ import matplotlib.patches as patches #se encarga de llamar a la funcion POLYGON 
 from shapely.geometry import Polygon
 from shapely.validation import make_valid
 from matplotlib.ticker import MultipleLocator #para poder indicar como mostrar los valores del plano cartesiano
+import math
+
 i= 0
 arrib = ("*".ljust(50,"*"))
 print(arrib)
@@ -40,16 +42,29 @@ for valor in matrices.values():
     for coorden in valor:
         valoress2.append(coorden)
 
-print(valoress2)
+# 1. Promedio para hallar el centro (cx, cy)
+cx = sum(p[0] for p in valoress2) / len(valoress2)
+cy = sum(p[1] for p in valoress2) / len(valoress2)
+
+# 2 y 3. Ordenar calculando el ángulo de cada punto (p) respecto al centro (cx, cy)
+puntos_ordenados = sorted(valoress2, key=lambda p: math.atan2(p[1] - cy, p[0] - cx))
+
 #creamos los valores para el grafico o subgrafico. 
 fig,ax = plt.subplots()
+
+for vall in puntos_ordenados:
+    plt.plot(vall[0],vall[1],marker = "o")
+
+figgg = patches.Polygon(puntos_ordenados,closed=True)
+ax.add_patch(figgg)
+
+
+
 #____________________________________________________________________________________________________________
-grafica = Polygon(valoress2)
+grafica = Polygon(puntos_ordenados)
 subgraf = make_valid(grafica)
 #iterar sobre los valores validados para calcular el area:
 area = 0 
-for puntos in valoress2:
-    plt.plot(puntos[0],puntos[1],marker = "o")
 for elemnt in subgraf.geoms:
     x,y = elemnt.exterior.xy
     ax.fill(x,y,label = "hola")
